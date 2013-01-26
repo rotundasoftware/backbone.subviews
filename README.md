@@ -34,8 +34,10 @@ MyItemViewClass = Backbone.View.extend( {
 	subviewCreators : {
 		"mySubview" : function() {
 			var options = {};
-			// do any logic required to create initialization options
-			new MySubviewClass( options );
+
+			// do any logic required to create initialization options, etc.,
+			// then instantiate and return new subview object
+			return new MySubviewClass( options );
 		}
 	},
 
@@ -60,11 +62,11 @@ MyItemViewClass = Backbone.View.extend( {
 
 ## Details
 
-To insert a subview into a view, simply include `<div data-subview="[subviewName]"></div>` in the view's template, where [subviewName] is the name of the subview. This "placeholder" `div` will be completely replaced with the subview's DOM element.
+To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template, where [subviewName] is the name of the subview. This "placeholder" `div` will be completely replaced with the subview's DOM element.
 
-Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is this hash is a subview's name, and the value is a function that should create and return the subview instance.
+Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is this hash is a subview's name, and the value is a function that should create and return the new subview object.
 
-After the parent view's `render` function is finished, the subview's will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the `_onSubviewsRendered` method (if one exists) is called on the parent view, which enables you to execute any additional rendering logic that depends on subviews having already been rendered.
+After the parent view's `render` function is finished, the subview's will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `_onSubviewsRendered` method is called (if one exists), in which you can execute any additional rendering logic that depends on subviews having already been rendered.
 
 When a parent view is re-rendered, its subviews will be re-rendered (their `render` function will be called), but the subview objects will remain the same - they will not be replaced with completely new view objects. As a result any state information that the subview objects contain will be preserved.
 
@@ -107,7 +109,7 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 		<%= subview( "mySubview" ) %>
 	</script>
 
-Just add underscore-template-helpers mixin to your project and then declare the `subview` global template helper:
+Just add the [underscore-template-helpers](https://github.com/dgbeck/underscore-template-helpers) mixin to your project and then declare the `subview` global template helper:
 
 ```javascript
 _.addTemplateHelpers( {
@@ -116,5 +118,3 @@ _.addTemplateHelpers( {
 	}
 } );
 ```
-
-You can turn on debugMode be setting the variable of the same name to true, which will help in debugging errors in rendering code by leaving breadcrumbs in the console log.
