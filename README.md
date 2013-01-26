@@ -1,15 +1,15 @@
 # Backbone.Subviews
 
-A minimalist view mixin for creating and managing subviews (views within views) in your Backbone.js apps.
+A minimalist View mixin for creating and managing subviews (views within views) in your Backbone.js apps.
 
 ## Benefits
 
 * Use a clear and consistent syntax to insert subviews in your templates.
 * Organize all javascript logic for creating subviews in one declarative hash.
 * Access subviews via the automatically populated `myView.subviews` hash.
-* Can be mixed in to any View class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
-* Works seamlessly with [Backbone.Courier](Backbone.Courier) to bubble subview events.
-* When parent view is re-rendered, existing subview objects are reused (preserving state).
+* Can be mixed into any View class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
+* Works seamlessly with [Backbone.Courier](Backbone.Courier) to bubble subview events to parent views.
+* When a parent view is re-rendered, existing subview objects are reused, not recreated (state is preserved).
 * Automatically cleans up subviews by calling their `remove` method when parent view is removed.
 
 ## Usage
@@ -48,7 +48,7 @@ MyItemViewClass = Backbone.View.extend( {
 	},
 
 	_onSubviewsRendered : {
-		// this function (if it exists) is called after subviews are finished rendering.
+		// this method (if it exists) is called after subviews are finished rendering.
 		// anytime after subviews are rendered, you can find the subviews in the `subviews` hash
 
 		this.listenTo( this.subviews.mySubview, "highlighted", this._mySubview_onHighlighted );
@@ -60,31 +60,25 @@ MyItemViewClass = Backbone.View.extend( {
 
 ## Details
 
-To insert a subview into a view, simply include `<div data-subview="[subviewName]"></div>` in the view's template, where [subviewName] is the name of the subview. This "placeholder" `div` will be completely replaced with the subview's element.
+To insert a subview into a view, simply include `<div data-subview="[subviewName]"></div>` in the view's template, where [subviewName] is the name of the subview. This "placeholder" `div` will be completely replaced with the subview's DOM element.
 
 Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is this hash is a subview's name, and the value is a function that should create and return the subview instance.
 
-Subviews are not rendered until after the parent view has completely finished rendering. The sequence of events is as follows:
+After the parent view's `render` function is finished, the subview's will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the `_onSubviewsRendered` method (if one exists) is called on the parent view, which enables you to execute any additional rendering logic that depends on subviews having already been rendered.
 
-	1. The parent view's `render` function is called
-	2. [subviews are automatically created and rendered in order]
-	3. The `_onSubviewsRendered` function (if one exists) is called on the parent view
-
-When a parent view is re-rendered, its subviews will be re-rendered (their `render` function will be called), as opposed to being replaced with completely new view objects. As a result any state information that the subview objects contain will be preserved.
+When a parent view is re-rendered, its subviews will be re-rendered (their `render` function will be called), but the subview objects will remain the same - they will not be replaced with completely new view objects. As a result any state information that the subview objects contain will be preserved.
 
 A parent view will automatically call `remove` on all its subviews when its `remove` method is called.
 
 ## Usage with Backbone.Courier
 
-Backbone.Subviews fits together with [Backbone.Courier](https://github.com/dgbeck/backbone.courier), a library that enables you to bubble events up the view hierarchy. Backbone.Courier by default expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. Thus without any configuration required you can your subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
+Backbone.Subviews fits together with [Backbone.Courier](https://github.com/dgbeck/backbone.courier), a library that enables you to bubble events up the view hierarchy. By default Backbone.Courier expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. So right away you can use subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
 
 ```javascript
 MyItemViewClass = Backbone.View.extend( {
 	initialize : function() {
-		// add backbone.subview functionality to this view
+		// add backbone.subview and backbone.courier functionality to this view
 		Backbone.Subviews.add( this );
-
-		// and backbone.courier functionality to this view
 		Backbone.Courier.add( this );
 	},
 
@@ -113,7 +107,7 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 		<%= subview( "mySubview" ) %>
 	</script>
 
-Just add the `subview` global template helper:
+Just add underscore-template-helpers mixin to your project and then declare the `subview` global template helper:
 
 ```javascript
 _.addTemplateHelpers( {
