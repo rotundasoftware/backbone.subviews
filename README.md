@@ -101,7 +101,7 @@ MyItemViewClass = Backbone.View.extend( {
 ```
 ## Usage with template helpers
 
-To further simplify the syntax for inserting subviews in your templates, add a global template helper to your template language of choice. For example, with [Underscore](https://github.com/documentcloud/underscore) templates, the [underscore-template-helpers](https://github.com/dgbeck/underscore-template-helpers) mixin can be used to support this syntax:
+To further simplify the syntax for inserting subviews in your templates, add a global template helper to your template language of choice. For example, with [underscore.js](https://github.com/documentcloud/underscore) templates, the [underscore-template-helpers](https://github.com/rotundasoftware/underscore-template-helpers) mixin can be used to support this syntax:
 
 	<script type='text/template' id="MyItemViewTemplate">
 		<h1>This is my item view template</h1>
@@ -109,7 +109,7 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 		<%= subview( "mySubview" ) %>
 	</script>
 
-Just add the [underscore-template-helpers](https://github.com/dgbeck/underscore-template-helpers) mixin to your project and then declare the `subview` global template helper:
+Just add the [underscore-template-helpers](https://github.com/rotundasoftware/underscore-template-helpers) mixin to your project and then declare the `subview` global template helper:
 
 ```javascript
 _.addTemplateHelpers( {
