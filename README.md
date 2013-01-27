@@ -66,7 +66,7 @@ To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the 
 
 Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is this hash is a subview's name, and the value is a function that should create and return the new subview object.
 
-After the parent view's `render` function is finished, the subview's will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `_onSubviewsRendered` method is called (if one exists), in which you can execute any additional rendering logic that depends on subviews having already been rendered.
+After the parent view's `render` function is finished, the subviews will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `_onSubviewsRendered` method is called (if one exists), in which you can execute any additional rendering logic that depends on subviews having already been rendered.
 
 When a parent view is re-rendered, its subviews will be re-rendered (their `render` function will be called), but the subview objects will remain the same - they will not be replaced with completely new view objects. As a result any state information that the subview objects contain will be preserved.
 
