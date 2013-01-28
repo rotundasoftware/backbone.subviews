@@ -1,13 +1,13 @@
 # Backbone.Subviews
 
-A minimalist View mixin for creating and managing subviews (views within views) in your Backbone.js apps.
+A minimalist View mixin for creating and managing named subviews (views within views) in your [Backbone.js](http://backbonejs.org/) applications.
 
 ## Benefits
 
 * Use a clear and consistent syntax to insert subviews in your templates.
 * Organize all javascript logic for creating subviews in one declarative hash.
 * Access subviews via the automatically populated `myView.subviews` hash.
-* Can be mixed into any View class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
+* Can be mixed into any view class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
 * Works seamlessly with [Backbone.Courier](Backbone.Courier) to bubble subview events to parent views.
 * When a parent view is re-rendered, existing subview objects are reused, not recreated (state is preserved).
 * Automatically cleans up subviews by calling their `remove` method when parent view is removed.
