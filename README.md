@@ -1,6 +1,6 @@
 # Backbone.Subviews
 
-A minimalist View mixin for creating and managing named subviews (views within views) in your [Backbone.js](http://backbonejs.org/) applications.
+A minimalist view mixin for creating and managing named subviews (views within views) in your [Backbone.js](http://backbonejs.org/) applications.
 
 ## Benefits
 
