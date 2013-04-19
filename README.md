@@ -2,7 +2,7 @@
 
 A minimalist view mixin for creating and managing named subviews (views within views) in your [Backbone.js](http://backbonejs.org/) applications. 
 
-This plugin is designed to manage a fixed number of subviews. If you are looking for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews), please see [Backbone.CollectionView](https://github.com/rotundasoftware/backbone-collection-view).
+This plugin is designed to manage a fixed number of subviews. If you are looking for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews), please see [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/).
 
 ## Benefits
 
