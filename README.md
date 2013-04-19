@@ -76,7 +76,7 @@ A parent view will automatically call `remove` on all its subviews when its `rem
 
 ## Usage with Backbone.Courier
 
-Backbone.Subviews fits together with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier), a plugin that enables you to easily bubble events up the view hierarchy. By default Backbone.Courier expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. So right away you can use subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
+Backbone.Subviews fits together with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier). By default Backbone.Courier expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. So right away you can use subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
 
 ```javascript
 MyItemViewClass = Backbone.View.extend( {
