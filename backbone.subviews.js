@@ -10,12 +10,12 @@
 	Backbone.Subviews = {};
 
 	Backbone.Subviews.add = function( view ) {
- 		var overriddenViewMethods = {
- 			render : view.render,
- 			remove : view.remove
- 		};
+		var overriddenViewMethods = {
+			render : view.render,
+			remove : view.remove
+		};
 
- 		// ****************** Overridden Backbone.View functions ****************** 
+		// ****************** Overridden Backbone.View functions ****************** 
 
 		view.render = function() {
 			var args = Array.prototype.slice.call( arguments );
@@ -28,8 +28,7 @@
 		};
 
 		view.remove = function() {
-			if( this.subviews )
-			{
+			if( this.subviews ) {
 				_.each( this.subviews, function( thisSubview ) {
 					thisSubview.remove();
 				} );
@@ -43,8 +42,7 @@
 		// ****************** Private Utility Functions ****************** 
 
 		function _prerender() {
-			if( debugMode )
-			{
+			if( debugMode ) {
 				console.group( "Rendering view" );
 				console.log( this );
 			}
@@ -64,13 +62,12 @@
 				var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
 				var newSubview;
 
-				// if the subview is already defined, then use the existing subview instead
-				// of creating a new one. This allows us to re-render a parent view without
-				// loosing any dynamic state data on the existing subview objects.
 				if( _.isUndefined( _this.subviews[ subviewName ] ) )
 				{
-					var subviewCreator = _this.subviewCreators[ subviewName ];
+					// if the subview is not yet defined, then create it now using
+					// the registered creator method in this.subviewCreators
 
+					var subviewCreator = _this.subviewCreators[ subviewName ];
 					if( _.isUndefined( subviewCreator ) ) throw "Can not find subview creator for subview named: " + subviewName;
 
 					if( debugMode ) console.log( "Creating subview " + subviewName );
@@ -78,17 +75,26 @@
 
 					_this.subviews[ subviewName ] = newSubview;
 				}
-				else newSubview = _this.subviews[ subviewName ];
+				else {
+					// if the subview is already defined, then use the existing subview instead
+					// of creating a new one. This allows us to re-render a parent view without
+					// loosing any dynamic state data on the existing subview objects.
+
+					newSubview = _this.subviews[ subviewName ];
+				}
 
 				thisPlaceHolderDiv.replaceWith( newSubview.$el );
 			} );
 
+			// now that all subviews have been created, render them one at a time, in the
+			// order they occur in the DOM.
 			_.each( this.subviews, function( thisSubview, subviewName ) {
 				if( debugMode ) console.group( "Rendering subview " + subviewName );
 				thisSubview.render();
 				if( debugMode ) console.groupEnd();
 			} );
 
+			// call this._onSubviewsRendered after everything is done (hook for application defined logic)
 			if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this );
 
 			if( debugMode ) console.groupEnd(); // "Rendering view"
