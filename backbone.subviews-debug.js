@@ -76,7 +76,7 @@
 					// the registered creator method in this.subviewCreators
 
 					var subviewCreator = _this.subviewCreators[ subviewName ];
-					if( _.isUndefined( subviewCreator ) ) throw "Can not find subview creator for subview named: " + subviewName;
+					if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
 					if( debugMode ) console.log( "Creating subview " + subviewName );
 					newSubview = subviewCreator.apply( _this );
