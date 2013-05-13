@@ -3,8 +3,15 @@
  * Copyright (c)2013 Rotunda Software, LLC.
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
+ *
+ * This debug version provides logging in the console to aid in debugging problems
+ * when rendering deeply nested subview structures. console.group is used to log a
+ * recursively generated tree structure. (Tested with Chrome.) To turn off logging
+ * temporarily, just set the private "debugMode" variable to false.
 */
 (function( Backbone, _ ) {
+	var debugMode = true;
+
 	Backbone.Subviews = {};
 
 	Backbone.Subviews.add = function( view ) {
@@ -40,6 +47,11 @@
 		// ****************** Private Utility Functions ****************** 
 
 		function _prerender() {
+			if( debugMode ) {
+				console.group( "Rendering view" );
+				console.log( this );
+			}
+	
 			if( ! this.subviews ) this.subviews = {};
 
 			// detach each of our subviews that we have already created during previous
@@ -66,7 +78,9 @@
 					var subviewCreator = _this.subviewCreators[ subviewName ];
 					if( _.isUndefined( subviewCreator ) ) throw "Can not find subview creator for subview named: " + subviewName;
 
+					if( debugMode ) console.log( "Creating subview " + subviewName );
 					newSubview = subviewCreator.apply( _this );
+
 					_this.subviews[ subviewName ] = newSubview;
 				}
 				else {
@@ -83,11 +97,15 @@
 			// now that all subviews have been created, render them one at a time, in the
 			// order they occur in the DOM.
 			_.each( this.subviews, function( thisSubview, subviewName ) {
+				if( debugMode ) console.group( "Rendering subview " + subviewName );
 				thisSubview.render();
+				if( debugMode ) console.groupEnd();
 			} );
 
 			// call this._onSubviewsRendered after everything is done (hook for application defined logic)
 			if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this );
+
+			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}
 	};
 } )( Backbone, _ );
