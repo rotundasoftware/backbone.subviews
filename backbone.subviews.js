@@ -31,7 +31,7 @@
 					thisSubview.remove();
 				} );
 
-				this.subviews = {};
+				delete this.subviews;
 			}
 
 			return overriddenViewMethods.remove.call( this );
