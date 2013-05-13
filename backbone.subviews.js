@@ -1,4 +1,4 @@
-/*!
+/*
  * Backbone.Subviews, v0.5.1
  * Copyright (c)2013 Rotunda Software, LLC.
  * Distributed under MIT license
