@@ -58,8 +58,7 @@
 				var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
 				var newSubview;
 
-				if( _.isUndefined( _this.subviews[ subviewName ] ) )
-				{
+				if( _.isUndefined( _this.subviews[ subviewName ] ) ) {
 					// if the subview is not yet defined, then create it now using
 					// the registered creator method in this.subviewCreators
 
