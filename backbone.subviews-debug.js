@@ -6,7 +6,7 @@
  *
  * This debug version provides logging in the console to aid in debugging problems
  * when rendering deeply nested subview structures. console.group is used to log a
- * recursively generated tree structure. (Tested with Chrome.) To turn off logging
+ * recursively generated tree structure. (Works best with Chrome.) To turn off logging
  * temporarily, just set the private "debugMode" variable to false.
 */
 (function( Backbone, _ ) {
