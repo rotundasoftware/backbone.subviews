@@ -2,15 +2,15 @@
 
 A minimalist view mixin for creating and managing named subviews (views within views) in your [Backbone.js](http://backbonejs.org/) applications. 
 
-This plugin is designed to manage a fixed number of subviews. If you are looking for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews), please see [Backbone.CollectionView](https://github.com/rotundasoftware/backbone-collection-view).
+This plugin is designed to manage a fixed number of subviews. If you are looking for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews), please see [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/).
 
 ## Benefits
 
-* Use a clear and consistent syntax to insert subviews in your templates.
+* Use a clear and consistent syntax to insert subviews in your templates: `<div data-subview="mySubview"></div>`
+* Then access subviews via the automatically populated `subviews` hash: `this.subviews.mySubview`
 * Organize all javascript logic for creating subviews in one declarative hash.
-* Access subviews via the automatically populated `myView.subviews` hash.
 * Can be mixed into any view class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
-* Works seamlessly with [Backbone.Courier](Backbone.Courier) to bubble subview events to parent views.
+* Works seamlessly with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) to bubble subview events to parent views.
 * When a parent view is re-rendered, existing subview objects are reused, not recreated (state is preserved).
 * Automatically cleans up subviews by calling their `remove` method when parent view is removed.
 
@@ -76,7 +76,7 @@ A parent view will automatically call `remove` on all its subviews when its `rem
 
 ## Usage with Backbone.Courier
 
-Backbone.Subviews fits together with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier), a plugin that enables you to easily bubble events up the view hierarchy. By default Backbone.Courier expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. So right away you can use subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
+Backbone.Subviews fits together with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier). By default Backbone.Courier expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. So right away you can use subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
 
 ```javascript
 MyItemViewClass = Backbone.View.extend( {
