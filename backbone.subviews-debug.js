@@ -64,6 +64,7 @@
 
 		function _postrender() {
 			var _this = this;
+			this.subviewCreators = this.subviewCreators || {};
 			
 			this.$( "div[data-subview]" ).each( function() {
 				var thisPlaceHolderDiv = $( this );
