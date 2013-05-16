@@ -116,7 +116,7 @@ Just add the [underscore-template-helpers](https://github.com/rotundasoftware/un
 ```javascript
 _.addTemplateHelpers( {
 	subview : function( subviewName ) {
-		return "<div data-subview='" + subviewName + "'></div>"
+		return "<div data-subview='" + subviewName + "'></div>";
 	}
 } );
 ```
