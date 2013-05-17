@@ -51,7 +51,7 @@ MyItemViewClass = Backbone.View.extend( {
 		// after we are done rendering, our subviews will automatically be rendered in order
 	},
 
-	_onSubviewsRendered : {
+	_onSubviewsRendered : function() {
 		// this method (if it exists) is called after subviews are finished rendering.
 		// anytime after subviews are rendered, you can find the subviews in the `subviews` hash
 
