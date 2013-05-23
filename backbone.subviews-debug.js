@@ -57,7 +57,7 @@
 			// detach each of our subviews that we have already created during previous
 			// renders from the DOM, so that they do not loose their DOM events when
 			// we re-render the contents of this view's DOM element.
-			_.each( this.subviews, function( thisSubview, subviewName ) {
+			_.each( this.subviews, function( thisSubview ) {
 				thisSubview.$el.detach();
 			} );
 		}
