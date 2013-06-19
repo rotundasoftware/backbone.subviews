@@ -8,11 +8,11 @@ This plugin is designed to manage a fixed number of subviews. If you are looking
 
 * Use a clear and consistent syntax to insert subviews in your templates: `<div data-subview="mySubview"></div>`
 * Then access subviews via the automatically populated `subviews` hash: `this.subviews.mySubview`
-* Organize all javascript logic for creating subviews in one declarative hash.
 * Can be mixed into any view class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
-* Works seamlessly with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) to bubble subview events to parent views.
-* When a parent view is re-rendered, existing subview objects are reused, not recreated (state is preserved).
+* When a parent view is re-rendered, existing subview objects are reused (state is preserved).
 * Automatically cleans up subviews by calling their `remove` method when parent view is removed.
+* Works seamlessly with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) to bubble subview events to parent views.
+* Makes it easy to reuse small views, especially if you [organize your assets in bundles](https://github.com/rotundasoftware/cartero).
 
 ## Usage
 
