@@ -12,7 +12,7 @@ This plugin is designed to manage a fixed number of subviews. If you are looking
 * When a parent view is re-rendered, existing subview objects are reused (state is preserved).
 * Automatically cleans up subviews by calling their `remove` method when parent view is removed.
 * Works seamlessly with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) to bubble subview events to parent views.
-* Makes it easy to reuse small views, especially if you [organize your assets in bundles](https://github.com/rotundasoftware/cartero).
+* Makes it easy to reuse small views, especially if you [organize your assets into bundles](https://github.com/rotundasoftware/cartero).
 
 ## Usage
 
