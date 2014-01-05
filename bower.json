@@ -10,7 +10,7 @@
   "keywords": [
     "backbone",
     "subviews",
-	"views"
+	"views",
 	"view"
   ],
   "dependencies": {
