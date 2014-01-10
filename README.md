@@ -36,7 +36,7 @@ MyItemViewClass = Backbone.View.extend( {
 			var options = {};
 
 			// Do any logic required to create initialization options,
-			// then instantiate and return new subview object.
+			// then instantiate and return the new subview object.
 			return new MySubviewClass( options );
 		}
 	},
