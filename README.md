@@ -64,7 +64,7 @@ MyItemViewClass = Backbone.View.extend( {
 
 To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template. This placeholder `div` will be completely replaced with the subview's DOM element.
 
-Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is a subview's name, and the value is a function that should create and return the new subview object.
+Then include an entry for the subview in the `subviewCreators` hash. The key of each entry in this hash is a subview's name, and the value is a function that should create and return the new subview object.
 
 After the parent view's `render` function is finished, the subviews will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `onSubviewsRendered` method is called (if one exists), in which you can execute any additional rendering logic that depends on subviews having already been rendered.
 
