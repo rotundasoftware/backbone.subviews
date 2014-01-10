@@ -9,7 +9,7 @@ This plugin is designed to manage a fixed number of subviews. See [Backbone.Coll
 * Provides a clean, consistent syntax for subviews in templates: `<div data-subview="mySubview"></div>`
 * Automatically places references to subviews in a hash keyed by name: `this.subviews.mySubview`
 * Maintains subview objects when a parent view is re-rendered, preserving subview state.
-* Automatically cleans up (i.e. removes) subviews a parent view is removed.
+* Automatically cleans up (i.e. removes) subviews when a parent view is removed.
 * Can be mixed into any view class.
 
 ## Example
