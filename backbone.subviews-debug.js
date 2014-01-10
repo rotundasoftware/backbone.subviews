@@ -1,6 +1,6 @@
 /*
- * Backbone.Subviews, v0.5.1
- * Copyright (c)2013 Rotunda Software, LLC.
+ * Backbone.Subviews, v0.6
+ * Copyright (c)2013-2014 Rotunda Software, LLC.
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
  *
@@ -33,6 +33,15 @@
 		};
 
 		view.remove = function() {
+			this.removeSubviews();
+			return overriddenViewMethods.remove.call( this );
+		};
+
+		// ****************** Additional public methods ****************** 
+
+		view.removeSubviews = function() {
+			// Removes all subviews and cleans up references in this.subviews.
+
 			if( this.subviews ) {
 				_.each( this.subviews, function( thisSubview ) {
 					thisSubview.remove();
@@ -40,8 +49,6 @@
 
 				delete this.subviews;
 			}
-
-			return overriddenViewMethods.remove.call( this );
 		};
 
 		// ****************** Private Utility Functions ****************** 

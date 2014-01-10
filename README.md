@@ -2,15 +2,15 @@
 
 A minimalist view mixin for creating and managing subviews in your [Backbone.js](http://backbonejs.org/) applications. 
 
-This plugin is designed to manage a fixed number of subviews. If you are looking for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews), please see [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/).
+This plugin is designed to manage a fixed number of subviews. See [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/) for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews). 
 
 ## Benefits
 
-* Use a clear and consistent syntax to insert subviews in your templates: `<div data-subview="mySubview"></div>`
-* Then access subviews via the automatically populated `subviews` hash: `this.subviews.mySubview`
-* Can be mixed into any view class, including the base views in [Marionette](https://github.com/marionettejs/backbone.marionette), [LayoutManager](https://github.com/tbranyen/backbone.layoutmanager), etc.
+* Use a clear syntax to insert named subviews in your templates: `<div data-subview="mySubview"></div>`
+* Access subviews via the automatically populated `subviews` hash: `this.subviews.mySubview`
 * When a parent view is re-rendered, existing subview objects are reused (state is preserved).
 * Automatically cleans up subviews by calling their `remove` method when parent view is removed.
+* Can be mixed into any view class.
 * Works seamlessly with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) to bubble subview events to parent views.
 * Makes it easy to reuse small views, especially if you [organize your assets into bundles](https://github.com/rotundasoftware/cartero).
 
@@ -37,7 +37,7 @@ MyItemViewClass = Backbone.View.extend( {
 		"mySubview" : function() {
 			var options = {};
 
-			// do any logic required to create initialization options, etc.,
+			// do any logic required to create initialization options,
 			// then instantiate and return new subview object
 			return new MySubviewClass( options );
 		}
@@ -74,34 +74,7 @@ When a parent view is re-rendered, its subviews will be re-rendered (their `rend
 
 A parent view will automatically call `remove` on all its subviews when its `remove` method is called.
 
-## Usage with Backbone.Courier
-
-Backbone.Subviews fits together with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier). By default Backbone.Courier expects subviews to be stored in the `subview` hash, which is exactly where Backbone.Subviews puts them. So right away you can use subviews in Backbone.Courier's `onMessages` and `passMessages` hashes. For example:
-
-```javascript
-MyItemViewClass = Backbone.View.extend( {
-	initialize : function() {
-		// add backbone.subview and backbone.courier functionality to this view
-		Backbone.Subviews.add( this );
-		Backbone.Courier.add( this );
-	},
-
-	subviewCreators : {
-		"mySubview" : function() {
-			return new MySubviewClass();
-		}
-	},
-
-	// respond to the "highlighted" message from
-	// "mySubview" by calling _mySubview_onHighlighted
-	onMessages {
-		"highlighted mySubview" : "_mySubview_onHighlighted"
-	},
-
-	...
-} );
-```
-## Usage with template helpers
+## Template Helpers
 
 To further simplify the syntax for inserting subviews in your templates, add a global template helper to your template language of choice. For example, with [underscore.js](https://github.com/documentcloud/underscore) templates, the [underscore-template-helpers](https://github.com/rotundasoftware/underscore-template-helpers) mixin can be used to support this syntax:
 
@@ -110,13 +83,3 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 
 		<%= subview( "mySubview" ) %>
 	</script>
-
-Just add the [underscore-template-helpers](https://github.com/rotundasoftware/underscore-template-helpers) mixin to your project and then declare the `subview` global template helper:
-
-```javascript
-_.addTemplateHelpers( {
-	subview : function( subviewName ) {
-		return "<div data-subview='" + subviewName + "'></div>";
-	}
-} );
-```
