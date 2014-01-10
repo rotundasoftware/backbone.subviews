@@ -109,8 +109,8 @@
 				if( debugMode ) console.groupEnd();
 			} );
 
-			// call this._onSubviewsRendered after everything is done (hook for application defined logic)
-			if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this );
+			// call this.onSubviewsRendered after everything is done (hook for application defined logic)
+			if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
 
 			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}

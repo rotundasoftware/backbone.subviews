@@ -100,7 +100,7 @@
 			thisSubview.render();
 		} );
 
-		// Call this._onSubviewsRendered after everything is done (hook for application defined logic)
-		if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this );
+		// Call this.onSubviewsRendered after everything is done (hook for application defined logic)
+		if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
 	}
 } )( Backbone, _ );
