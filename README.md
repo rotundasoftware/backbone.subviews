@@ -68,7 +68,7 @@ Then include an entry for the subview in the `subviewCreators` hash. The key of 
 
 After the parent view's `render` function is finished, the subviews will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `onSubviewsRendered` method is called (if one exists), in which you can execute any additional rendering logic that depends on subviews having already been rendered.
 
-When a parent view is re-rendered, its subviews will be re-rendered (i.e. their `render` function will be called), but the subview objects will remain the same - they will not be replaced with completely new view objects, so that their state is preserved. To force subviews to be recreated instead of just re-rendered, call `view.removeSubviews()` before re-rendering the parent view.
+When a parent view is re-rendered, its subviews will be re-rendered (i.e. their `render` function will be called). By default the subview objects will remain the same - they will not be replaced with completely new view objects. Dynamic and event handlers will therefore be preserved. To force subviews to be recreated, call `parentView.removeSubviews()` before re-rendering the parent.
 
 A parent view will automatically remove all its subviews when its `remove` method is called.
 
