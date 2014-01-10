@@ -1,7 +1,7 @@
 {
   "name": "backbone.subviews",
   "main": "backbone.subviews.js",
-  "version": "0.5.1",
+  "version": "0.6",
   "homepage": "https://github.com/rotundasoftware/backbone.subviews",
   "authors": [
     "David Beck <david@rotundasoftware.com>"
