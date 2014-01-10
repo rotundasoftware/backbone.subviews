@@ -86,5 +86,5 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 
 #### v0.6 (1/10/14)
 * Renamed `_onSubviewsRendered` to `onSubviewsRendered`. (Old name depreciated but still works for now.)
-* Added `view.removeSubviews()` method to enable a forced re-creation of subviews.
+* Added `view.removeSubviews()` method.
 
