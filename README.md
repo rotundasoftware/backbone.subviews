@@ -6,13 +6,11 @@ This plugin is designed to manage a fixed number of subviews. See [Backbone.Coll
 
 ## Benefits
 
-* Use a clear syntax to insert named subviews in your templates: `<div data-subview="mySubview"></div>`
-* Access subviews via the automatically populated `subviews` hash: `this.subviews.mySubview`
-* When a parent view is re-rendered, existing subview objects are reused (state is preserved).
-* Automatically cleans up subviews by calling their `remove` method when parent view is removed.
+* Provides a clean, consistent syntax to include subviews in templates: `<div data-subview="mySubview"></div>`
+* Places references to `subviews` in a hash keyed by name: `this.subviews.mySubview`
+* Reuses subview objects when a parent view is re-rendered, so state is preserved.
+* Cleans up subviews by calling their `remove` method when parent view is removed.
 * Can be mixed into any view class.
-* Works seamlessly with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) to bubble subview events to parent views.
-* Makes it easy to reuse small views, especially if you [organize your assets into bundles](https://github.com/rotundasoftware/cartero).
 
 ## Usage
 
@@ -70,9 +68,9 @@ Then include an entry for the subview in the `subviewCreators` hash. The key of 
 
 After the parent view's `render` function is finished, the subviews will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `onSubviewsRendered` method is called (if one exists), in which you can execute any additional rendering logic that depends on subviews having already been rendered.
 
-When a parent view is re-rendered, its subviews will be re-rendered (their `render` function will be called), but the subview objects will remain the same - they will not be replaced with completely new view objects. As a result any state information that the subview objects contain will be preserved.
+When a parent view is re-rendered, its subviews will be re-rendered (i.e. their `render` function will be called), but the subview objects will remain the same - they will not be replaced with completely new view objects, so that their state is preserved. To force subviews to be recreated instead of just re-rendered, call `view.removeSubviews()` before re-rendering the parent view.
 
-A parent view will automatically call `remove` on all its subviews when its `remove` method is called.
+A parent view will automatically remove all its subviews when its `remove` method is called.
 
 ## Template Helpers
 
