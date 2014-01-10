@@ -14,7 +14,7 @@ This plugin is designed to manage a fixed number of subviews. See [Backbone.Coll
 
 ## Example
 
-In your template for MyView, insert a subview named "mySubview" by inserting a `div` element with a `data-subview` attribute:
+In a view template, insert a subview "mySubview" using a placeholder `div` with a `data-subview` attribute:
 
 	<script type='text/template' id="MyItemViewTemplate">
 		<h1>This is my item view template</h1>
@@ -62,7 +62,7 @@ MyItemViewClass = Backbone.View.extend( {
 
 ## Usage
 
-To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template. This "placeholder `div`" will be completely replaced with the subview's DOM element.
+To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template. This placeholder `div` will be completely replaced with the subview's DOM element.
 
 Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is a subview's name, and the value is a function that should create and return the new subview object.
 
