@@ -88,7 +88,7 @@ $( document ).ready( function() {
 				this.$el.html( "<div data-subview=\"mySubview\"></div>" );
 			},
 
-			_onSubviewsRendered : function() {
+			onSubviewsRendered : function() {
 				ok( this.subviews.mySubview.cid, "Subview is in subview hash" );
 				start();
 			}
@@ -128,9 +128,9 @@ $( document ).ready( function() {
 				}
 			},
 
-			_onSubviewsRendered : function() {
+			onSubviewsRendered : function() {
 				start();
-				ok( true, "_onSubviewsRendered is called" );
+				ok( true, "onSubviewsRendered is called" );
 				equal( $( "#container div" ).html(), "rendered", "subview is rendered" );
 			}
 
@@ -200,7 +200,7 @@ $( document ).ready( function() {
 				}
 			},
 
-			_onSubviewsRendered : function() {
+			onSubviewsRendered : function() {
 				renderCount++;
 				if ( renderCount === 2 ) {
 					ok( this.subviews.mySubview.state, "Subview state is perserved" );

@@ -2,17 +2,17 @@
 
 A minimalist view mixin for creating and managing subviews in your [Backbone.js](http://backbonejs.org/) applications. 
 
-This plugin is designed to manage a fixed number of subviews. See [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/) for a plugin to manage a dynamic number of subviews (i.e. an ordered array of subviews, or a "collection" of subviews). 
+This plugin is designed to manage a fixed number of subviews. See [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/) for a plugin to manage a dynamic number of subviews (i.e. an array of subviews, or a "collection" of subviews). 
 
 ## Benefits
 
 * Provides a clean, consistent syntax to include subviews in templates: `<div data-subview="mySubview"></div>`
-* Places references to `subviews` in a hash keyed by name: `this.subviews.mySubview`
-* Reuses subview objects when a parent view is re-rendered, so state is preserved.
-* Cleans up subviews by calling their `remove` method when parent view is removed.
+* Places references to subviews in a hash keyed by name: `this.subviews.mySubview`
+* Reuses subview objects when a parent view is re-rendered, so their state is preserved.
+* Automatically cleans up (i.e. removes) subviews a parent view is removed.
 * Can be mixed into any view class.
 
-## Usage
+## Example
 
 In your template for MyView, insert a subview named "mySubview" by inserting a `div` element with a `data-subview` attribute:
 
@@ -27,7 +27,7 @@ Now in MyItemView.js:
 ```javascript
 MyItemViewClass = Backbone.View.extend( {
 	initialize : function() {
-		// add backbone.subview functionality to this view
+		// Add backbone.subview functionality to this view.
 		Backbone.Subviews.add( this );
 	},
 
@@ -35,14 +35,14 @@ MyItemViewClass = Backbone.View.extend( {
 		"mySubview" : function() {
 			var options = {};
 
-			// do any logic required to create initialization options,
-			// then instantiate and return new subview object
+			// Do any logic required to create initialization options,
+			// then instantiate and return new subview object.
 			return new MySubviewClass( options );
 		}
 	},
 
 	render : function( data ) {
-		// render funciton is just like normal.. nothing new here
+		// `render` funciton is just like normal.. nothing new here.
 		var templateFunction = _.template( $( "#MyItemViewTemplate" ).html() );
 		this.$el.html( templateFunction( data ) );
 
@@ -50,8 +50,8 @@ MyItemViewClass = Backbone.View.extend( {
 	},
 
 	onSubviewsRendered : function() {
-		// this method (if it exists) is called after subviews are finished rendering.
-		// anytime after subviews are rendered, you can find the subviews in the `subviews` hash
+		// This method (if it exists) is called after subviews are finished rendering.
+		// Anytime after subviews are rendered, you can find the subviews in the `subviews` hash
 
 		this.listenTo( this.subviews.mySubview, "highlighted", this._mySubview_onHighlighted );
 	},
@@ -60,9 +60,9 @@ MyItemViewClass = Backbone.View.extend( {
 } );
 ```
 
-## Details
+## Usage
 
-To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template, where [subviewName] is the name of the subview. This "placeholder" `div` will be completely replaced with the subview's DOM element.
+To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template. This "placeholder `div`" will be completely replaced with the subview's DOM element.
 
 Then include an entry for the subview in the `subviewCreators` hash. The key of each entry is this hash is a subview's name, and the value is a function that should create and return the new subview object.
 
@@ -81,3 +81,10 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 
 		<%= subview( "mySubview" ) %>
 	</script>
+
+## Change log
+
+#### v0.6 (1/10/14)
+* Renamed `_onSubviewsRendered` to `onSubviewsRendered`. (Old name still works for now but will be removed in the future.)
+* Added `view.removeSubviews()` method to enable a forced re-creation of subviews.
+

@@ -111,6 +111,7 @@
 
 			// call this.onSubviewsRendered after everything is done (hook for application defined logic)
 			if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
+			if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this ); // depreciated. backwards compatibility for versions < 0.6.
 
 			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}
