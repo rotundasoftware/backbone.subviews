@@ -4,7 +4,23 @@
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
 */
-( function( Backbone, _ ) {
+( function( root, factory ) {
+
+	// Deal with various environments.
+	// Backbone.Subviews requires backbone, underscore, and possible jquery.
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( [ 'underscore', 'backbone', 'jquery' ], factory );
+	} else if ( typeof exports !== 'undefined' ) {
+		// Node/CommonJS
+		try { $ = require( 'jquery' ); } catch( ignore ) {}
+		factory( require('underscore' ), require( 'backbone' ), $ );
+	} else {
+		// Browser globals
+		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
+	}
+
+}( this, function( _, Backbone, $ ) {
 	Backbone.Subviews = {};
 
 	Backbone.Subviews.add = function( view ) {
@@ -104,4 +120,4 @@
 		if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
 		if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this ); // depreciated. backwards compatibility for versions < 0.6.
 	}
-} )( Backbone, _ );
+}));

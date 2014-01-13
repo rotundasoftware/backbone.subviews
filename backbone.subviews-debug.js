@@ -9,7 +9,24 @@
  * recursively generated tree structure. (Works best with Chrome.) To turn off logging
  * temporarily, just set the private "debugMode" variable to false.
 */
-(function( Backbone, _ ) {
+
+( function( root, factory ) {
+
+	// Deal with various environments.
+	// Backbone.Subviews requires backbone, underscore, and possibly jquery.
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( [ 'underscore', 'backbone', 'jquery' ], factory );
+	} else if ( typeof exports !== 'undefined' ) {
+		// Node/CommonJS
+		try { $ = require( 'jquery' ); } catch( ignore ) {}
+		factory( require('underscore' ), require( 'backbone' ), $ );
+	} else {
+		// Browser globals
+		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
+	}
+
+}( this, function( _, Backbone, $ ) {
 	var debugMode = true;
 
 	Backbone.Subviews = {};
@@ -116,4 +133,4 @@
 			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}
 	};
-} )( Backbone, _ );
+}));
