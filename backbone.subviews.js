@@ -7,7 +7,7 @@
 ( function( root, factory ) {
 
 	// Deal with various environments.
-	// Backbone.Subviews requires backbone, underscore, and possible jquery.
+	// Backbone.Subviews requires backbone, underscore, and possibly jquery.
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
 		define( [ 'underscore', 'backbone', 'jquery' ], factory );
