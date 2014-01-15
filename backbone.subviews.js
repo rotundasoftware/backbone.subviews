@@ -14,7 +14,7 @@
 	} else if ( typeof exports !== 'undefined' ) {
 		// Node/CommonJS
 		try { $ = require( 'jquery' ); } catch( ignore ) {}
-		modules.exports = factory( require('underscore' ), require( 'backbone' ), $ );
+		module.exports = factory( require('underscore' ), require( 'backbone' ), $ );
 	} else {
 		// Browser globals
 		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
