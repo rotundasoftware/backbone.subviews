@@ -14,7 +14,7 @@
 	} else if ( typeof exports !== 'undefined' ) {
 		// Node/CommonJS
 		try { $ = require( 'jquery' ); } catch( ignore ) {}
-		factory( require('underscore' ), require( 'backbone' ), $ );
+		modules.exports = factory( require('underscore' ), require( 'backbone' ), $ );
 	} else {
 		// Browser globals
 		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
@@ -120,4 +120,5 @@
 		if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
 		if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this ); // depreciated. backwards compatibility for versions < 0.6.
 	}
+	return Backbone.Subviews;
 }));

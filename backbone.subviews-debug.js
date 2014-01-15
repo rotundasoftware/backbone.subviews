@@ -20,7 +20,7 @@
 	} else if ( typeof exports !== 'undefined' ) {
 		// Node/CommonJS
 		try { $ = require( 'jquery' ); } catch( ignore ) {}
-		factory( require('underscore' ), require( 'backbone' ), $ );
+		modules.exports = factory( require('underscore' ), require( 'backbone' ), $ );
 	} else {
 		// Browser globals
 		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
@@ -133,4 +133,5 @@
 			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}
 	};
+	return Backbone.Subviews;
 }));
