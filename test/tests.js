@@ -24,7 +24,7 @@ $( document ).ready( function() {
 		}
 	);
 
-	asyncTest( "Subview creator methods are called when parent is rendered", 2, function() {
+	asyncTest( "Subview creator methods are called when parent is rendered", function() {
 
 		var MyItemViewClass = Backbone.View.extend( {
 
@@ -62,12 +62,13 @@ $( document ).ready( function() {
 
 		} );
 
+        expect(2);
 		itemViewInstance = new MyItemViewClass();
 
 	} );
 
 
-	asyncTest( "Subviews are accessible through `subviews` hash", 1, function() {
+	asyncTest( "Subviews are accessible through `subviews` hash",  function() {
 
 		var MyItemViewClass = Backbone.View.extend( {
 
@@ -95,6 +96,7 @@ $( document ).ready( function() {
 
 		} );
 
+        expect(1);
 		itemViewInstance = new MyItemViewClass();
 
 	} );
@@ -107,7 +109,7 @@ $( document ).ready( function() {
 		}
 	);
 
-	asyncTest( "Subviews are rendered when parent is rendered", 4, function() {
+	asyncTest( "Subviews are rendered when parent is rendered", function() {
 
 		var MyItemViewClass = Backbone.View.extend( {
 
@@ -136,6 +138,9 @@ $( document ).ready( function() {
 
 		} );
 
+
+        expect(4);
+
 		stop();
 
 		itemViewInstance = new MyItemViewClass();
@@ -143,7 +148,7 @@ $( document ).ready( function() {
 
 	} );
 
-	test( "Subviews replace placeholder divs", 1, function() {
+	test( "Subviews replace placeholder divs", function() {
 
 		var MyItemViewClass = Backbone.View.extend( {
 
@@ -169,6 +174,7 @@ $( document ).ready( function() {
 
 		} );
 
+        expect(1);
 		itemViewInstance = new MyItemViewClass();
 
 		var subViewInstance = itemViewInstance.subviews.mySubview;
@@ -176,7 +182,7 @@ $( document ).ready( function() {
 
 	} );
 
-	asyncTest( "Subviews mantain state when parent view is rerended", 1, function() {
+	asyncTest( "Subviews mantain state when parent view is rerended", function() {
 
 		var renderCount = 0;
 
@@ -210,6 +216,8 @@ $( document ).ready( function() {
 
 		} );
 
+        expect(1);
+
 		stop();
 
 		itemViewInstance = new MyItemViewClass();
@@ -229,7 +237,7 @@ $( document ).ready( function() {
 		}
 	);
 
-	asyncTest( "Calling remove on parent calls remove on it's subviews", 2, function() {
+	asyncTest( "Calling remove on parent calls remove on it's subviews", function() {
 
 		var MyItemViewClass = Backbone.View.extend( {
 
@@ -252,6 +260,8 @@ $( document ).ready( function() {
 			}
 
 		} );
+
+        expect(2);
 
 		itemViewInstance = new MyItemViewClass();
 
