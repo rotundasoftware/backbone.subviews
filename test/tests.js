@@ -101,6 +101,35 @@ $( document ).ready( function() {
 
 	} );
 
+	asyncTest( "Subviews can be specified on on non-DIV elements", function() {
+		var MyItemViewClass = Backbone.View.extend( {
+			el : "#container",
+
+			initialize : function() {
+				Backbone.Subviews.add( this );
+				this.render();
+			},
+
+			render : function() {
+				this.$el.html( "<table><head><tr data-subview=\"mySubview\"></tr></thead></table>" );
+			},
+
+			subviewCreators : {
+				mySubview : function() {
+					ok( true, "Subview creator method called" );
+					start();
+					return new MySubviewClass();
+				},
+			}
+
+		} );
+
+        expect(1);
+		itemViewInstance = new MyItemViewClass();
+
+    });
+
+
 	module( "Subview rendering",
 		{
 			teardown : function() {

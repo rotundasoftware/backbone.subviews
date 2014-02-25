@@ -65,7 +65,7 @@
 		// Support subviewCreators as both objects and functions.
 		this.subviewCreators = _.result( this, "subviewCreators" );
 		
-		this.$( "div[data-subview]" ).each( function() {
+		this.$( "[data-subview]" ).each( function() {
 			var thisPlaceHolderDiv = $( this );
 			var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
 			var newSubview;
