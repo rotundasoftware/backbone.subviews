@@ -1,5 +1,5 @@
 /*
- * Backbone.Subviews, v0.6
+ * Backbone.Subviews, v0.7
  * Copyright (c)2013-2014 Rotunda Software, LLC.
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
