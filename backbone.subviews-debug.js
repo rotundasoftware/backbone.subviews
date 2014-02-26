@@ -86,7 +86,8 @@
 					if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
 					if( debugMode ) console.log( "Creating subview " + subviewName );
-					newSubview = subviewCreator.apply( _this );
+                    newSubview = subviewCreator.apply( _this, [thisPlaceHolderDiv] );
+                    if( newSubview === null ) return;	// subview creators can return null to indicate that the subview should not be created
 
 					_this.subviews[ subviewName ] = newSubview;
 				}
