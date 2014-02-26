@@ -1,0 +1,18 @@
+{
+	"name": "Backbone.Subviews",
+	"version": "0.7.0",
+	"description": "A minimalist view mixin for creating and managing subviews in your Backbone.js applications.",
+	"main": "backbone.subviews.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rotundasoftware/backbone.subviews.git"
+	},
+	"dependencies": {
+		"backbone": "1.x"
+	},
+	"author": {
+		"name": "Rotunda Software"
+	},
+	"license": "MIT",
+	"readmeFilename": "README.md"
+}
