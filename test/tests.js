@@ -101,6 +101,37 @@ $( document ).ready( function() {
 
 	} );
 
+	asyncTest( "Subview Creators gets jquery wrapped placeholder as parameter",  function() {
+
+		var MyItemViewClass = Backbone.View.extend( {
+
+			el : "#container",
+
+			initialize : function() {
+				Backbone.Subviews.add( this );
+				this.render();
+			},
+
+			render : function() {
+				this.$el.html( "<div data-other=\"1\" data-subview=\"mySubview\"></div>" );
+			},
+
+			subviewCreators : {
+				mySubview : function(placeholder) {
+                    var data = placeholder.attr( "data-other" );
+                    equal( data, 1, "Data attribute present" );
+                    start();
+					return new MySubviewClass();
+				}
+			},
+
+		} );
+
+        expect(1);
+		itemViewInstance = new MyItemViewClass();
+
+	} );
+
 	module( "Subview rendering",
 		{
 			teardown : function() {
