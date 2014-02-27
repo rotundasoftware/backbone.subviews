@@ -74,13 +74,25 @@ A parent view will automatically remove all its subviews when its `remove` metho
 
 To have more than one subview created from the same subview creator, set `data-subview-id` on each placeholder to a distinct values. This allows your templates to generate multiple placeholders. E.g:
 
-```handlebars
+``` handlebars
 {{each list}}
 <div data-subview="itemView" data-subview-id="this.id"></div>
 {{/each }}
 ```
 
-The value of `data-subview` (along with any other attributes on the placeholder) is available to the subview creator function via the placeholder parameter.
+The value of `data-subview` (along with any other attributes on the placeholder) is available to the subview creator function via the placeholder parameter. E.g.:
+
+``` javascript
+        subviewCreators: {
+            "itemView": function (placeholder) {
+                var itemId = placeholder.attr('data-subview-id'),
+                    item = this.collection.get(itemId);
+                return new ItemView({
+                    model: item,
+                });
+            },
+        }
+``` 
 
 ## Template Helpers
 
