@@ -62,15 +62,25 @@ MyItemViewClass = Backbone.View.extend( {
 
 ## Usage
 
-To insert a subview, just put `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template. This placeholder `div` will be completely replaced with the subview's DOM element.
+To insert a subview, put a placeholder element like this `<div data-subview="[subviewName]"></div>` in the appropriate place in the parent view's template. This placeholder `div` will be completely replaced with the subview's DOM element.
 
-Then include an entry for the subview in the `subviewCreators` hash. The key of each entry in this hash is a subview's name, and the value is a function that should create and return the new subview object.
+Then include an entry for the subview in the `subviewCreators` hash. The key of each entry in this hash is a subview's name, and the value is a function that should create and return the new subview object. The subview creator function gets the placeholder element (jQuery wrapped) as a paraemter.
 
 After the parent view's `render` function is finished, the subviews will automatically be created and rendered (in the order their placeholder `div`s appear inside the parent view). Once all subviews have been created and rendered, the parent view's `onSubviewsRendered` method is called (if one exists).
 
 When a parent view is re-rendered, its subviews will be re-rendered (i.e. their `render` function will be called). By default the original subview objects will by reused in order to preserve subview state. To force the subview objects to be recreated instead of reused, call `parentView.removeSubviews()` before re-rendering the parent.
 
 A parent view will automatically remove all its subviews when its `remove` method is called.
+
+To have more than one subview created from the same subview creator, set `data-subview-id` on each placeholder to a distinct values. This allows your templates to generate multiple placeholders. E.g:
+
+```handlebars
+{{each list}}
+<div data-subview="itemView" data-subview-id="this.id"></div>
+{{/each }}
+```
+
+The value of `data-subview` (along with any other attributes on the placeholder) is available to the subview creator function via the placeholder parameter.
 
 ## Template Helpers
 
