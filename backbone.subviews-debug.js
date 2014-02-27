@@ -73,12 +73,16 @@
 			var _this = this;
 			this.subviewCreators = this.subviewCreators || {};
 			
+		// Support subviewCreators as both objects and functions.
+		this.subviewCreators = _.result( this, "subviewCreators" );
+		
 			this.$( "div[data-subview]" ).each( function() {
 				var thisPlaceHolderDiv = $( this );
 				var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
+				var subviewId = thisPlaceHolderDiv.attr( "data-subview-id" ) || subviewName;
 				var newSubview;
 
-				if( _.isUndefined( _this.subviews[ subviewName ] ) ) {
+				if( _.isUndefined( _this.subviews[ subviewId ] ) ) {
 					// if the subview is not yet defined, then create it now using
 					// the registered creator method in this.subviewCreators
 
@@ -86,17 +90,17 @@
 					if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
 					if( debugMode ) console.log( "Creating subview " + subviewName );
-                    newSubview = subviewCreator.apply( _this, [thisPlaceHolderDiv] );
-                    if( newSubview === null ) return;	// subview creators can return null to indicate that the subview should not be created
+					newSubview = subviewCreator.apply( _this, [thisPlaceHolderDiv] );
+					if( newSubview === null ) return;	// subview creators can return null to indicate that the subview should not be created
 
-					_this.subviews[ subviewName ] = newSubview;
+					_this.subviews[ subviewId ] = newSubview;
 				}
 				else {
 					// if the subview is already defined, then use the existing subview instead
 					// of creating a new one. This allows us to re-render a parent view without
 					// loosing any dynamic state data on the existing subview objects.
 
-					newSubview = _this.subviews[ subviewName ];
+					newSubview = _this.subviews[ subviewId ];
 				}
 
 				thisPlaceHolderDiv.replaceWith( newSubview.$el );
@@ -104,8 +108,8 @@
 
 			// now that all subviews have been created, render them one at a time, in the
 			// order they occur in the DOM.
-			_.each( this.subviews, function( thisSubview, subviewName ) {
-				if( debugMode ) console.group( "Rendering subview " + subviewName );
+			_.each( this.subviews, function( thisSubview, subviewName, subviewId ) {
+				if( debugMode ) console.group( "Rendering subview " + subviewName + " " + subviewId );
 				thisSubview.render();
 				if( debugMode ) console.groupEnd();
 			} );
