@@ -194,6 +194,12 @@ $( document ).ready( function() {
 
 		} );
 
+        expect(2);
+		itemViewInstance = new MyItemViewClass();
+
+	} );
+
+
 	module( "Subview rendering",
 		{
 			teardown : function() {
@@ -281,7 +287,6 @@ $( document ).ready( function() {
 
         expect(8);
 
-	>>>>>>> 9a3c868... Multiple views with same subviewCreator
 	stop();
 
 		itemViewInstance = new MyItemViewClass();
