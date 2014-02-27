@@ -68,9 +68,10 @@
 		this.$( "div[data-subview]" ).each( function() {
 			var thisPlaceHolderDiv = $( this );
 			var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
+            var subviewId = thisPlaceHolderDiv.attr( "data-subview-id" ) || subviewName;
 			var newSubview;
 
-			if( _.isUndefined( _this.subviews[ subviewName ] ) ) {
+            if( _.isUndefined( _this.subviews[ subviewId ] ) ) {
 				// if the subview is not yet defined, then create it now using
 				// the registered creator method in this.subviewCreators.
 
@@ -80,7 +81,7 @@
 				newSubview = subviewCreator.apply( _this, [thisPlaceHolderDiv] );
 				if( newSubview === null ) return;	// subview creators can return null to indicate that the subview should not be created
 
-				_this.subviews[ subviewName ] = newSubview;
+                _this.subviews[ subviewId ] = newSubview;
 			}
 			else {
 				// If the subview is already defined, then use the existing subview instead
@@ -88,7 +89,7 @@
 				// loosing any dynamic state data on the existing subview objects. To force
 				// re-initialization of subviews, call view._removeSubviews before re-rendering.
 
-				newSubview = _this.subviews[ subviewName ];
+                newSubview = _this.subviews[ subviewId ];
 			}
 
 			thisPlaceHolderDiv.replaceWith( newSubview.$el );
