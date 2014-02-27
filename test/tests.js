@@ -161,6 +161,39 @@ $( document ).ready( function() {
     });
 
 
+	asyncTest( "Multiple subviews of same type can be hashed separately by id",  function() {
+
+		var MyItemViewClass = Backbone.View.extend( {
+
+			el : "#container",
+
+			initialize : function() {
+				Backbone.Subviews.add( this );
+				this.render();
+			},
+
+			subviewCreators : {
+				mySubview : function() {
+					return new MySubviewClass();
+				}
+			},
+
+			render : function() {
+				this.$el.html( 
+                    "<div data-subview=\"mySubview\" data-subview-id=\"1\"></div>" +
+                    "<div data-subview=\"mySubview\" data-subview-id=\"2\"></div>" 
+                );
+			},
+
+			onSubviewsRendered : function() {
+                console.log(this.subviews);
+				ok( this.subviews[1].cid , "First Subview is in subview hash" );
+				ok( this.subviews[2].cid , "Second Subview is in subview hash" );
+				start();
+			}
+
+		} );
+
 	module( "Subview rendering",
 		{
 			teardown : function() {
@@ -207,6 +240,55 @@ $( document ).ready( function() {
 		itemViewInstance.render();
 
 	} );
+
+	asyncTest( "All Subviews of same time are rendered when parent is rendered", function() {
+
+		var MyItemViewClass = Backbone.View.extend( {
+
+			el : "#container",
+
+			initialize : function() {
+				Backbone.Subviews.add( this );
+				this.render();
+			},
+
+			render : function() {
+				this.$el.html( 
+                    "<div data-subview=\"mySubview\" data-subview-id=\"1\"></div>" +
+                    "<div data-subview=\"mySubview\" data-subview-id=\"2\"></div>"
+                );
+			},
+
+			subviewCreators : {
+				mySubview : function() {
+					return new MySubviewClass();
+				}
+			},
+
+			onSubviewsRendered : function() {
+                var divs;
+				ok( true, "onSubviewsRendered is called" );
+                $divs = $( "#container div" );
+				equal( $divs.length, 2, "Both subviews rendered" );
+                $divs.each(function (index, element) {
+                    equal( $(element).html(), "rendered", "subview is rendered" );
+                });
+				start();
+			}
+
+		} );
+
+
+        expect(8);
+
+	>>>>>>> 9a3c868... Multiple views with same subviewCreator
+	stop();
+
+		itemViewInstance = new MyItemViewClass();
+		itemViewInstance.render();
+
+	} );
+
 
 	test( "Subviews replace placeholder divs", function() {
 
@@ -315,6 +397,49 @@ $( document ).ready( function() {
 			subviewCreators : {
 				mySubview : function() {
 
+					return new MySubviewClass();
+				}
+			}
+
+		} );
+
+        expect(2);
+
+		itemViewInstance = new MyItemViewClass();
+
+		itemViewInstance.remove();
+
+		equal( $( "#container" ).children().length, 0, "Subview DOM elements were removed" );
+
+		Backbone.trigger( "message" );
+
+		setTimeout( function() {
+			start();
+			ok( true, "The removed subview listeners were not triggered" );
+		}, 100 );
+
+	} );
+
+	asyncTest( "Calling remove on parent calls remove on it's subviews", function() {
+
+		var MyItemViewClass = Backbone.View.extend( {
+
+			el : "#container",
+
+			initialize : function() {
+				Backbone.Subviews.add( this );
+				this.render();
+			},
+
+			render : function() {
+				this.$el.html( 
+                    "<div data-subview=\"mySubview\" data-subview-id=\"1\"></div>" +
+                    "<div data-subview=\"mySubview\" data-subview-id=\"2\"></div>" 
+                );
+			},
+
+			subviewCreators : {
+				mySubview : function() {
 					return new MySubviewClass();
 				}
 			}
