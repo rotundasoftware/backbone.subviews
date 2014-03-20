@@ -7,8 +7,8 @@
 		"type": "git",
 		"url": "https://github.com/rotundasoftware/backbone.subviews.git"
 	},
-	"dependencies": {
-		"backbone": "1.x"
+	"peerDependencies": {
+		"backbone": "~1.1.2"
 	},
 	"author": {
 		"name": "Rotunda Software"
