@@ -84,6 +84,9 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 
 ## Change log
 
+# v0.7 (2/26/14)
+* UMD wrapper and package.json added.
+
 #### v0.6 (1/10/14)
 * Renamed `_onSubviewsRendered` to `onSubviewsRendered`. (Old name depreciated but still works for now.)
 * Added `view.removeSubviews()` method.

@@ -1,5 +1,5 @@
 /*
- * Backbone.Subviews, v0.6
+ * Backbone.Subviews, v0.7
  * Copyright (c)2013-2014 Rotunda Software, LLC.
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
@@ -9,7 +9,22 @@
  * recursively generated tree structure. (Works best with Chrome.) To turn off logging
  * temporarily, just set the private "debugMode" variable to false.
 */
-(function( Backbone, _ ) {
+
+( function( root, factory ) {
+
+	// Deal with various environments.
+	// Backbone.Subviews requires backbone, underscore, and possibly jquery.
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( [ 'underscore', 'backbone', 'jquery' ], factory );
+	} else if ( typeof exports !== 'undefined' ) {
+		module.exports = factory( require('underscore' ), require( 'backbone' ) );
+	} else {
+		// Browser globals
+		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
+	}
+
+}( this, function( _, Backbone ) {
 	var debugMode = true;
 
 	Backbone.Subviews = {};
@@ -116,4 +131,5 @@
 			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}
 	};
-} )( Backbone, _ );
+	return Backbone.Subviews;
+}));
