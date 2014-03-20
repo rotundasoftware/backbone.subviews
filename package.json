@@ -1,5 +1,5 @@
 {
-	"name": "backbone-subviews"
+	"name": "backbone-subviews",
 	"version": "0.7.0",
 	"description": "A minimalist view mixin for creating and managing subviews in your Backbone.js applications.",
 	"main": "backbone.subviews.js",
