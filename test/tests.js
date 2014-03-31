@@ -62,7 +62,7 @@ $( document ).ready( function() {
 
 		} );
 
-        expect(2);
+		expect(2);
 		itemViewInstance = new MyItemViewClass();
 
 	} );
@@ -96,7 +96,7 @@ $( document ).ready( function() {
 
 		} );
 
-        expect(1);
+		expect(1);
 		itemViewInstance = new MyItemViewClass();
 
 	} );
@@ -124,10 +124,10 @@ $( document ).ready( function() {
 
 		} );
 
-        expect(1);
+		expect(1);
 		itemViewInstance = new MyItemViewClass();
 
-    });
+	});
 
 
 	module( "Subview rendering",
@@ -168,7 +168,7 @@ $( document ).ready( function() {
 		} );
 
 
-        expect(4);
+		expect(4);
 
 		stop();
 
@@ -203,7 +203,7 @@ $( document ).ready( function() {
 
 		} );
 
-        expect(1);
+		expect(1);
 		itemViewInstance = new MyItemViewClass();
 
 		var subViewInstance = itemViewInstance.subviews.mySubview;
@@ -245,7 +245,7 @@ $( document ).ready( function() {
 
 		} );
 
-        expect(1);
+		expect(1);
 
 		stop();
 
@@ -290,7 +290,7 @@ $( document ).ready( function() {
 
 		} );
 
-        expect(2);
+		expect(2);
 
 		itemViewInstance = new MyItemViewClass();
 
