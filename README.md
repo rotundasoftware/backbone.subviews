@@ -10,6 +10,7 @@ This plugin is designed to manage a fixed number of subviews. See [Backbone.Coll
 * Automatically places references to subviews in a hash keyed by name: `this.subviews.mySubview`
 * Maintains subview objects when a parent view is re-rendered, preserving subview state.
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed.
+* Promotes small encapsulated ui components that can be reused with [parcelify](https://github.com/rotundasoftware/parcelify) or [cartero](https://github.com/rotundasoftware/cartero/).
 * Can be mixed into any view class.
 
 ## Example
