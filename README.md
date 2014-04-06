@@ -85,6 +85,9 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 
 ## Change log
 
+#### v0.7.1 (4/6/14)
+* Relax `div` restriction on subview placeholder - placeholders can now be of any type of element.
+
 #### v0.7 (2/26/14)
 * UMD wrapper and package.json added.
 
