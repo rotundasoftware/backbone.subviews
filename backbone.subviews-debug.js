@@ -88,7 +88,7 @@
 			var _this = this;
 			this.subviewCreators = this.subviewCreators || {};
 			
-			this.$( "div[data-subview]" ).each( function() {
+			this.$( "[data-subview]" ).each( function() {
 				var thisPlaceHolderDiv = $( this );
 				var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
 				var newSubview;
@@ -131,5 +131,6 @@
 			if( debugMode ) console.groupEnd(); // "Rendering view"
 		}
 	};
+
 	return Backbone.Subviews;
-}));
+} ) );

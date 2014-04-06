@@ -80,7 +80,7 @@
 		// Support subviewCreators as both objects and functions.
 		this.subviewCreators = _.result( this, "subviewCreators" );
 		
-		this.$( "div[data-subview]" ).each( function() {
+		this.$( "[data-subview]" ).each( function() {
 			var thisPlaceHolderDiv = $( this );
 			var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
 			var newSubview;
@@ -119,5 +119,6 @@
 		if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
 		if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this ); // depreciated. backwards compatibility for versions < 0.6.
 	}
+
 	return Backbone.Subviews;
-}));
+} ) );
