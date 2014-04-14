@@ -11,20 +11,20 @@
 */
 
 ( function( root, factory ) {
-
 	// Deal with various environments.
 	// Backbone.Subviews requires backbone, underscore, and possibly jquery.
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
 		define( [ 'underscore', 'backbone', 'jquery' ], factory );
 	} else if ( typeof exports !== 'undefined' ) {
-		module.exports = factory( require('underscore' ), require( 'backbone' ) );
+		// Node/CommonJS
+		module.exports = factory( require('underscore' ), require( 'backbone' ), require( 'backbone' ).$ );
 	} else {
 		// Browser globals
-		factory( root._, root.Backbone, (root.jQuery || root.Zepto || root.ender || root.$) );
+		factory( root._, root.Backbone, ( root.jQuery || root.Zepto || root.$ ) );
 	}
 
-}( this, function( _, Backbone ) {
+}( this, function( _, Backbone, $ ) {
 	var debugMode = true;
 
 	Backbone.Subviews = {};
