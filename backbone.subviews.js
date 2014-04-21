@@ -56,6 +56,16 @@
 				delete this.subviews;
 			}
 		};
+
+		// ****************** Additional private methods ****************** 
+
+		view._createSubview = function( subviewName, placeHolderDiv ) {
+			// find the registered creator method in this.subviewCreators.
+			var subviewCreator = this.subviewCreators[ subviewName ];
+			if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
+
+			return subviewCreator.apply( this );
+		};
 	};
 
 	// ****************** Private utility functions ****************** 
@@ -84,22 +94,15 @@
 			var newSubview;
 
 			if( _.isUndefined( _this.subviews[ subviewName ] ) ) {
-				// if the subview is not yet defined, then create it now using
-				// the registered creator method in this.subviewCreators.
-
-				var subviewCreator = _this.subviewCreators[ subviewName ];
-				if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
-
-				newSubview = subviewCreator.apply( _this );
-				if( newSubview === null ) return;	// subview creators can return null to indicate that the subview should not be created
-
+				newSubview = _this._createSubview( subviewName, thisPlaceHolderDiv );
+				if( newSubview === null ) return;  // subview creators can return null to indicate that the subview should not be created
 				_this.subviews[ subviewName ] = newSubview;
 			}
 			else {
 				// If the subview is already defined, then use the existing subview instead
 				// of creating a new one. This allows us to re-render a parent view without
 				// loosing any dynamic state data on the existing subview objects. To force
-				// re-initialization of subviews, call view._removeSubviews before re-rendering.
+				// re-initialization of subviews, call view.removeSubviews before re-rendering.
 
 				newSubview = _this.subviews[ subviewName ];
 			}
