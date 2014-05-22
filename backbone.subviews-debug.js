@@ -35,7 +35,7 @@
 			remove : view.remove
 		};
 
-		// ****************** Overridden Backbone.View functions ****************** 
+		// ****************** Overridden Backbone.View functions ******************
 
 		view.render = function() {
 			var args = Array.prototype.slice.call( arguments );
@@ -52,7 +52,7 @@
 			return overriddenViewMethods.remove.call( this );
 		};
 
-		// ****************** Additional public methods ****************** 
+		// ****************** Additional public methods ******************
 
 		view.removeSubviews = function() {
 			// Removes all subviews and cleans up references in this.subviews.
@@ -66,14 +66,14 @@
 			}
 		};
 
-		// ****************** Private Utility Functions ****************** 
+		// ****************** Private Utility Functions ******************
 
 		function _prerender() {
 			if( debugMode ) {
 				console.group( "Rendering view" );
 				console.log( this );
 			}
-	
+
 			if( ! this.subviews ) this.subviews = {};
 
 			// detach each of our subviews that we have already created during previous
@@ -87,7 +87,7 @@
 		function _postrender() {
 			var _this = this;
 			this.subviewCreators = this.subviewCreators || {};
-			
+
 			this.$( "[data-subview]" ).each( function() {
 				var thisPlaceHolderDiv = $( this );
 				var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
@@ -100,8 +100,16 @@
 					var subviewCreator = _this.subviewCreators[ subviewName ];
 					if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
+
+					// If 'id' and 'class' is defined on placeholder pass to creator function
+					var options = {};
+					var placeHolderId = thisPlaceHolderDiv.attr("id");
+					var placeHolderClassName = thisPlaceHolderDiv.attr("class");
+					if( _.isString( placeHolderId )) options.id = placeHolderId;
+					if( _.isString( placeHolderClassName )) options.className = placeHolderClassName;
+
 					if( debugMode ) console.log( "Creating subview " + subviewName );
-					newSubview = subviewCreator.apply( _this );
+					newSubview = subviewCreator.call( _this, options );
 
 					_this.subviews[ subviewName ] = newSubview;
 				}

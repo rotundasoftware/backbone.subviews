@@ -193,7 +193,7 @@ $( document ).ready( function() {
 			},
 
 			subviewCreators : {
-				mySubview : function() {
+				mySubview : function(options) {
 					return new MySubviewClass();
 				},
 				mySecondSubview : function() {
@@ -209,6 +209,40 @@ $( document ).ready( function() {
 		var subViewInstance = itemViewInstance.subviews.mySubview;
 		equal( subViewInstance.$el.parent().prop( "tagName" ), "SPAN", "Subview replaces corresponding placeholder" );
 
+	} );
+
+	test( "Subviews can use id and class name given on placeholder div", function() {
+
+		var MyItemViewClass = Backbone.View.extend( {
+
+			el : "#container",
+
+			initialize : function() {
+				Backbone.Subviews.add( this );
+				this.render();
+			},
+
+			render : function() {
+				this.$el.html( "<span><div data-subview=\"mySubview\" id=\"myid\" class=\"myclass\"></div></span>" );
+			},
+
+			subviewCreators : {
+				mySubview : function(options) {
+					return new MySubviewClass(options);
+				},
+				mySecondSubview : function() {
+					return new MySubviewClass();
+				}
+			}
+
+		} );
+
+		expect(2);
+		itemViewInstance = new MyItemViewClass();
+
+		var subViewInstance = itemViewInstance.subviews.mySubview;
+		equal( subViewInstance.$el.prop( "id" ), "myid", "Subview use ID of placeholder" );
+		equal( subViewInstance.$el.prop( "class" ), "myclass", "Subview use class of placeholder" );
 	} );
 
 	asyncTest( "Subviews mantain state when parent view is rerended", function() {

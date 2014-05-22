@@ -26,7 +26,7 @@
 			remove : view.remove
 		};
 
-		// ****************** Overridden Backbone.View methods ****************** 
+		// ****************** Overridden Backbone.View methods ******************
 
 		view.render = function() {
 			var args = Array.prototype.slice.call( arguments );
@@ -43,7 +43,7 @@
 			return overriddenViewMethods.remove.call( this );
 		};
 
-		// ****************** Additional public methods ****************** 
+		// ****************** Additional public methods ******************
 
 		view.removeSubviews = function() {
 			// Removes all subviews and cleans up references in this.subviews.
@@ -58,7 +58,7 @@
 		};
 	};
 
-	// ****************** Private utility functions ****************** 
+	// ****************** Private utility functions ******************
 
 	function _prerender() {
 		if( ! this.subviews ) this.subviews = {};
@@ -77,7 +77,7 @@
 
 		// Support subviewCreators as both objects and functions.
 		this.subviewCreators = _.result( this, "subviewCreators" );
-		
+
 		this.$( "[data-subview]" ).each( function() {
 			var thisPlaceHolderDiv = $( this );
 			var subviewName = thisPlaceHolderDiv.attr( "data-subview" );
@@ -90,7 +90,14 @@
 				var subviewCreator = _this.subviewCreators[ subviewName ];
 				if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
-				newSubview = subviewCreator.apply( _this );
+				// If 'id' and 'class' is defined on placeholder pass to creator function
+				var options = {};
+				var placeHolderId = thisPlaceHolderDiv.attr("id");
+				var placeHolderClassName = thisPlaceHolderDiv.attr("class");
+				if( _.isString( placeHolderId )) options.id = placeHolderId;
+				if( _.isString( placeHolderClassName )) options.className = placeHolderClassName;
+
+				newSubview = subviewCreator.call( _this, options );
 				if( newSubview === null ) return;	// subview creators can return null to indicate that the subview should not be created
 
 				_this.subviews[ subviewName ] = newSubview;
