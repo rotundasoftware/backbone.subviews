@@ -47,7 +47,7 @@ MyItemViewClass = Backbone.View.extend( {
 		var templateFunction = _.template( $( "#MyItemViewTemplate" ).html() );
 		this.$el.html( templateFunction( data ) );
 
-		// after we are done rendering, our subviews will automatically be rendered in order
+		// After we are done rendering, our subviews will automatically be rendered in order
 	},
 
 	onSubviewsRendered : function() {

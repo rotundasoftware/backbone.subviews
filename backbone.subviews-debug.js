@@ -23,7 +23,6 @@
 		// Browser globals
 		factory( root._, root.Backbone, ( root.jQuery || root.Zepto || root.$ ) );
 	}
-
 }( this, function( _, Backbone, $ ) {
 	var debugMode = true;
 
