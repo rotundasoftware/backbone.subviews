@@ -69,7 +69,8 @@
 		// ****************** Additional private methods ****************** 
 
 		view._createSubview = function( subviewName, placeHolderDiv ) {
-			// find the registered creator method in this.subviewCreators.
+			// Return a new subview instance given a subview name and its placeHolderDiv.
+			// Implemented as instance method so that this behavior may be customized / overridden.
 			var subviewCreator = this.subviewCreators[ subviewName ];
 			if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
@@ -86,7 +87,7 @@
 	
 			if( ! this.subviews ) this.subviews = {};
 
-			// detach each of our subviews that we have already created during previous
+			// Detach each of our subviews that we have already created during previous
 			// renders from the DOM, so that they do not loose their DOM events when
 			// we re-render the contents of this view's DOM element.
 			_.each( this.subviews, function( thisSubview ) {
@@ -120,7 +121,7 @@
 				thisPlaceHolderDiv.replaceWith( newSubview.$el );
 			} );
 
-			// now that all subviews have been created, render them one at a time, in the
+			// Now that all subviews have been created, render them one at a time, in the
 			// order they occur in the DOM.
 			_.each( this.subviews, function( thisSubview, subviewName ) {
 				if( debugMode ) console.group( "Rendering subview " + subviewName );
@@ -128,7 +129,7 @@
 				if( debugMode ) console.groupEnd();
 			} );
 
-			// call this.onSubviewsRendered after everything is done (hook for application defined logic)
+			// Call this.onSubviewsRendered after everything is done (hook for application defined logic)
 			if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
 			if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this ); // depreciated. backwards compatibility for versions < 0.6.
 
