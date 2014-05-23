@@ -87,7 +87,6 @@ To further simplify the syntax for inserting subviews in your templates, add a g
 
 #### v0.7.3 (5/23/14)
 * Re-factored a bit so that the mechanism used to create subviews can be overriden if desired.
-* The placeHolderDiv is now be passed as the second argument to the functions in `subviewCreators`
 
 #### v0.7.2 (4/13/14)
 * Improved UMD wrapper to use DOM library already attached to jquery.
