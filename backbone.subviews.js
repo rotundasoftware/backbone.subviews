@@ -1,5 +1,5 @@
 /*
- * Backbone.Subviews, v0.7
+ * Backbone.Subviews, v0.7.3
  * Copyright (c)2013-2014 Rotunda Software, LLC.
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
@@ -60,7 +60,8 @@
 		// ****************** Additional private methods ****************** 
 
 		view._createSubview = function( subviewName, placeHolderDiv ) {
-			// find the registered creator method in this.subviewCreators.
+			// Return a new subview instance given a subview name and its placeHolderDiv.
+			// Implemented as instance method so that this behavior may be customized / overridden.
 			var subviewCreator = this.subviewCreators[ subviewName ];
 			if( _.isUndefined( subviewCreator ) ) throw new Error( "Can not find subview creator for subview named: " + subviewName );
 
