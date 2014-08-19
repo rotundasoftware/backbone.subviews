@@ -2,16 +2,19 @@
 
 A minimalist view mixin for creating and managing subviews in your [Backbone.js](http://backbonejs.org/) applications. 
 
-This plugin is designed to manage a fixed number of subviews. See [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/) for a plugin to manage a dynamic number of subviews (i.e. an array of subviews, or a "collection" of subviews). 
+This plugin is designed to manage a fixed number of subviews. See [Backbone.CollectionView](http://rotundasoftware.github.io/backbone.collectionView/) for a plugin to manage a dynamic number of subviews (i.e. an array of subviews). 
 
 ## Benefits
 
-* Provides a clean, consistent syntax for subviews in templates: `<div data-subview="mySubview"></div>`
-* Automatically places references to subviews in a hash keyed by name: `this.subviews.mySubview`
+* Provides a consistent syntax for subviews in templates: `<div data-subview="mySubview"></div>`
+* Automatically puts references to subviews in a hash by name: `this.subviews.mySubview`
 * Maintains subview objects when a parent view is re-rendered, preserving subview state.
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed.
-* Promotes small encapsulated ui components that can be reused (e.g. with [parcelify](https://github.com/rotundasoftware/parcelify) or [cartero](https://github.com/rotundasoftware/cartero/)).
+* Promotes small encapsulated ui components that can be reused.
 * Can be mixed into any view class.
+
+> BONUS: Use Backbone.Subviews in conjunction with [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier) and
+> [Cartero](https://github.com/rotundasoftware/cartero) / [Parcelify](https://github.com/rotundasoftware/parcelify) for a completely modularized backbone.js experience.
 
 ## Example
 
