@@ -1,6 +1,6 @@
 /*
- * Backbone.Subviews, v0.7.4
- * Copyright (c)2013-2014 Rotunda Software, LLC.
+ * Backbone.Subviews, v1.1.0
+ * Copyright (c)2013-2017 Rotunda Software, LLC.
  * Distributed under MIT license
  * http://github.com/rotundasoftware/backbone.subviews
 */
@@ -110,6 +110,9 @@
 			thisPlaceHolderDiv.replaceWith( newSubview.$el );
 		} );
 
+		if( _.isFunction( this.onSubviewsCreated ) ) this.onSubviewsCreated.call( this );
+		if( _.isFunction( this._onSubviewsCreated ) ) this._onSubviewsCreated.call( this );
+
 		// Now that all subviews have been created, render them one at a time, in the
 		// order they occur in the DOM.
 		_.each( this.subviews, function( thisSubview ) {
@@ -118,7 +121,7 @@
 
 		// Call this.onSubviewsRendered after everything is done (hook for application defined logic)
 		if( _.isFunction( this.onSubviewsRendered ) ) this.onSubviewsRendered.call( this );
-		if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this ); // depreciated. backwards compatibility for versions < 0.6.
+		if( _.isFunction( this._onSubviewsRendered ) ) this._onSubviewsRendered.call( this );
 	}
 
 	return Backbone.Subviews;
