@@ -27,12 +27,12 @@
 
 		// ****************** Overridden Backbone.View methods ****************** 
 
-		view.render = function() {
+		view.render = function( options ) {
 			var args = Array.prototype.slice.call( arguments );
 
 			_prerender.call( this );
 			var returnValue = overriddenViewMethods.render.apply( this, args );
-			_postrender.call( this );
+			_postrender.call( this, args );
 
 			return returnValue;
 		};
@@ -46,13 +46,13 @@
 
 		view.removeSubviews = function() {
 			// Removes all subviews and cleans up references in this.subviews.
+			var _this = this;
 
 			if( this.subviews ) {
-				_.each( this.subviews, function( thisSubview ) {
+				_.each( this.subviews, function( thisSubview, thisSubviewName ) {
 					thisSubview.remove();
+					delete _this.subviews[ thisSubviewName ];
 				} );
-
-				delete this.subviews;
 			}
 		};
 
@@ -81,7 +81,7 @@
 		} );
 	}
 
-	function _postrender() {
+	function _postrender( renderArguments ) {
 		var _this = this;
 		this.subviewCreators = this.subviewCreators || {};
 
@@ -116,7 +116,7 @@
 		// Now that all subviews have been created, render them one at a time, in the
 		// order they occur in the DOM.
 		_.each( this.subviews, function( thisSubview ) {
-			thisSubview.render();
+			thisSubview.render.apply( thisSubview, renderArguments );
 		} );
 
 		// Call this.onSubviewsRendered after everything is done (hook for application defined logic)
