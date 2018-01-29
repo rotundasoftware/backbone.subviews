@@ -95,7 +95,13 @@
 
 			if( _.isUndefined( _this.subviews[ subviewName ] ) ) {
 				newSubview = _this._createSubview( subviewName, thisPlaceHolderDiv );
-				if( newSubview === null ) return;  // subview creators can return null to indicate that the subview should not be created
+				
+				if( newSubview === null ) {
+					// subview creators can return null to indicate that the subview should not be created
+					thisPlaceHolderDiv.remove();
+					return; 
+				}
+
 				_this.subviews[ subviewName ] = newSubview;
 			}
 			else {
